@@ -1,89 +1,125 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOAD BOT SUPPORT ZONE</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+        body, html {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .intro {
             text-align: center;
+            padding: 50px;
+            background-color: #333;
+            color: white;
+            height: 100vh;
         }
-        #intro {
+        .intro h1 {
+            margin: 0;
+            font-size: 4em;
+        }
+        .intro p {
+            font-size: 1.5em;
+        }
+        .chat-container {
             display: none;
-            animation: fadeIn 3s;
-            margin-bottom: 20px;
+            padding: 20px;
         }
-        #chat-container {
-            display: none;
-            margin-top: 20px;
+        .chat-box {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
-        #chatLog {
+        .messages {
+            height: 300px;
+            overflow-y: scroll;
             border: 1px solid #ccc;
             padding: 10px;
-            height: 400px;
-            overflow-y: scroll;
-            background-color: #fff;
-            text-align: left;
+            margin-bottom: 10px;
         }
-        textarea {
-            width: 100%;
-            height: 50px;
+        .message-input {
+            width: calc(100% - 50px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
-        button {
-            padding: 10px 15px;
-            margin-top: 10px;
+        .send-btn {
+            padding: 10px 20px;
+            border: none;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .bot-message {
+            background-color: #e6e6e6;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        .user-message {
+            background-color: #d4edda;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            text-align: right;
         }
     </style>
 </head>
 <body>
-    <div id="intro">
-        <h1>SOAD BOT SUPPORT ZONE</h1>
-        <h2>ডেভেলপার: SM-SOAD</h2>
-        <p>এখনই চ্যাট শুরু করুন!</p>
+
+<div class="intro" id="intro">
+    <h1>Welcome to SOAD BOT SUPPORT ZONE</h1>
+    <p>Developed by SM Soad</p>
+    <button class="send-btn" onclick="startChat()">Enter Chat</button>
+</div>
+
+<div class="chat-container" id="chatContainer">
+    <div class="chat-box">
+        <div class="messages" id="messages">
+            <!-- Chat messages will appear here -->
+        </div>
+        <input type="text" class="message-input" id="userInput" placeholder="Type your question...">
+        <button class="send-btn" onclick="sendMessage()">Send</button>
     </div>
-    
-    <div id="chat-container">
-        <h3>চ্যাট করুন:</h3>
-        <div id="chatLog"></div>
-        <textarea id="userInput" placeholder="আপনার প্রশ্ন লিখুন..."></textarea>
-        <button onclick="sendMessage()">প্রশ্ন জিজ্ঞাসা করুন</button>
-    </div>
+</div>
 
-    <script>
-        // Intro Animation
-        window.onload = function() {
-            document.getElementById("intro").style.display = "block";
-            setTimeout(startChat, 4000); // 4 সেকেন্ড পর চ্যাট শুরু হবে
-        }
+<script>
+    function startChat() {
+        document.getElementById('intro').style.display = 'none';
+        document.getElementById('chatContainer').style.display = 'block';
+    }
 
-        function startChat() {
-            document.getElementById("intro").style.display = "none";
-            document.getElementById("chat-container").style.display = "block";
-        }
+    function sendMessage() {
+        var userInput = document.getElementById('userInput').value;
+        if (userInput === '') return;
 
-        function sendMessage() {
-            const userInput = document.getElementById("userInput").value;
-            if (!userInput) return;
+        // Display user message
+        var userMessage = document.createElement('div');
+        userMessage.className = 'user-message';
+        userMessage.textContent = userInput;
+        document.getElementById('messages').appendChild(userMessage);
+        document.getElementById('userInput').value = '';
 
-            // Display user message
-            document.getElementById("chatLog").innerHTML += `<p><strong>আপনি:</strong> ${userInput}</p>`;
-            document.getElementById("userInput").value = '';
+        // Simulated bot response
+        var botMessage = document.createElement('div');
+        botMessage.className = 'bot-message';
+        botMessage.textContent = 'SOAD BOT: দুঃখিত, এই মুহূর্তে আপনার প্রশ্নের উত্তর দেওয়া সম্ভব হচ্ছে না। আমি একটি আর্টিফিশিয়াল ইন্টেলিজেন্ট রোবট, আমার মধ্যে language transfer করা হচ্ছে। আরো কিছু জানতে আমার বস সোয়াদ এর কাছ থেকে জানুন। "' + userInput + '"';
+        document.getElementById('messages').appendChild(botMessage);
 
-            // Simulate a response
-            const botResponse = "দুঃখিত, এই মুহূর্তে আপনার প্রশ্নের উত্তর দেওয়া সম্ভব হচ্ছে না। আমি একটি আর্টিফিশিয়াল ইন্টেলিজেন্ট রোবট, আমার মধ্যে language transfer করা হচ্ছে। আরো কিছু জানতে আমার বস সোয়াদ এর কাছ থেকে জানুন।";
-            document.getElementById("chatLog").innerHTML += `<p><strong>বট:</strong> ${botResponse}</p>`;
-            
-            // Scroll to the bottom of the chat log
-            document.getElementById("chatLog").scrollTop = document.getElementById("chatLog").scrollHeight;
-        }
-    </script>
+        // Scroll to bottom
+        var messageBox = document.getElementById('messages');
+        messageBox.scrollTop = messageBox.scrollHeight;
+    }
+</script>
+
 </body>
 </html>
