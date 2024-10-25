@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,15 +10,18 @@
             background-color: #f0f0f0;
             color: #333;
             text-align: center;
+            overflow: hidden;
         }
         #intro {
-            display: none;
-            padding: 20px;
+            padding: 50px;
             background: linear-gradient(to right, #ff7e5f, #feb47b);
             color: white;
-            font-size: 24px;
+            font-size: 32px;
+            position: relative;
+            animation: fadeIn 3s forwards;
         }
         #chat-container {
+            display: none; /* Initially hidden */
             margin-top: 20px;
         }
         #messages {
@@ -36,35 +39,37 @@
         #send-button {
             padding: 10px;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <div id="intro">
-        ডেভলপার SM-SOAD এর স্বাগতম! আপনি SOAD BOT SUPPORT ZONE এ প্রবেশ করছেন।
-    </div>
+    <div id="intro">Welcome to SOAD BOT SUPPORT ZONE!<br>Developer: SM-SOAD</div>
     <div id="chat-container">
         <div id="messages"></div>
-        <input type="text" id="user-input" placeholder="আপনার বার্তা লিখুন..." />
-        <button id="send-button">পাঠান</button>
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <button id="send-button">Send</button>
     </div>
     <script>
         window.onload = function() {
-            document.getElementById('intro').style.display = 'block';
             setTimeout(() => {
                 document.getElementById('intro').style.display = 'none';
-            }, 5000); // 5 সেকেন্ড পর ইন্ট্রো মুছে যাবে
+                document.getElementById('chat-container').style.display = 'block'; // Show chat container
+            }, 5000); // Hide intro after 5 seconds
         };
 
         document.getElementById('send-button').onclick = function() {
             let input = document.getElementById('user-input').value;
             let messagesDiv = document.getElementById('messages');
-            messagesDiv.innerHTML += `<div>ব্যবহারকারী: ${input}</div>`;
+            messagesDiv.innerHTML += `<div>User: ${input}</div>`;
             document.getElementById('user-input').value = '';
 
-            // অটো রিপ্লাই যুক্ত করা হচ্ছে
-            let reply = "ধন্যবাদ! আমরা আপনার বার্তা পেয়েছি। অনুগ্রহ করে অপেক্ষা করুন";
+            // Auto reply
+            let reply = "Thank you! We have received your message.";
             messagesDiv.innerHTML += `<div>SOAD BOT: ${reply}</div>`;
-            messagesDiv.scrollTop = messagesDiv.scrollHeight; // স্ক্রল নিচে নিয়ে যাবে
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to bottom
         };
     </script>
 </body>
