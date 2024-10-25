@@ -111,7 +111,7 @@
         document.getElementById('messages').appendChild(userMessage);
         document.getElementById('userInput').value = '';
 
-        // Fetch bot response from API
+        // API call to get the response from a backend server
         var response = await fetch('https://api.example.com/get-response', {
             method: 'POST',
             headers: {
