@@ -5,72 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOAD BOT SUPPORT ZONE</title>
     <style>
-        body {
+        body, html {
+            margin: 0;
+            padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
+            background-color: #f4f4f4;
+        }
+        .intro {
             text-align: center;
-            overflow: hidden;
-        }
-        #intro {
             padding: 50px;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            background-color: #333;
             color: white;
-            font-size: 32px;
-            position: relative;
-            animation: fadeIn 3s forwards;
+            height: 100vh;
         }
-        #chat-container {
-            display: none; /* Initially hidden */
-            margin-top: 20px;
+        .intro h1 {
+            margin: 0;
+            font-size: 4em;
         }
-        #messages {
-            border: 1px solid #ccc;
+        .intro p {
+            font-size: 1.5em;
+        }
+        .chat-container {
+            display: none;
+            padding: 20px;
+        }
+        .chat-box {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .messages {
             height: 300px;
             overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
             margin-bottom: 10px;
-            padding: 10px;
-            background-color: white;
         }
-        #user-input {
-            width: 80%;
+        .message-input {
+            width: calc(100% - 50px);
             padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
-        #send-button {
+        .send-btn {
+            padding: 10px 20px;
+            border: none;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .bot-message {
+            background-color: #e6e6e6;
             padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
+        .user-message {
+            background-color: #d4edda;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            text-align: right;
         }
     </style>
 </head>
 <body>
-    <div id="intro">Welcome to SOAD BOT SUPPORT ZONE!<br>Developer: SM-SOAD</div>
-    <div id="chat-container">
-        <div id="messages"></div>
-        <input type="text" id="user-input" placeholder="Type your message..." />
-        <button id="send-button">Send</button>
+
+<div class="intro" id="intro">
+    <h1>Welcome to SOAD BOT SUPPORT ZONE</h1>
+    <p>Developed by SM Soad</p>
+    <button class="send-btn" onclick="startChat()">Enter Chat</button>
+</div>
+
+<div class="chat-container" id="chatContainer">
+    <div class="chat-box">
+        <div class="messages" id="messages">
+            <!-- Chat messages will appear here -->
+        </div>
+        <input type="text" class="message-input" id="userInput" placeholder="Type your question...">
+        <button class="send-btn" onclick="sendMessage()">Send</button>
     </div>
-    <script>
-        window.onload = function() {
-            setTimeout(() => {
-                document.getElementById('intro').style.display = 'none';
-                document.getElementById('chat-container').style.display = 'block'; // Show chat container
-            }, 5000); // Hide intro after 5 seconds
-        };
+</div>
 
-        document.getElementById('send-button').onclick = function() {
-            let input = document.getElementById('user-input').value;
-            let messagesDiv = document.getElementById('messages');
-            messagesDiv.innerHTML += `<div>User: ${input}</div>`;
-            document.getElementById('user-input').value = '';
+<script>
+    function startChat() {
+        document.getElementById('intro').style.display = 'none';
+        document.getElementById('chatContainer').style.display = 'block';
+    }
 
-            // Auto reply
-            let reply = "Thank you! We have received your message.";
-            messagesDiv.innerHTML += `<div>SOAD BOT: ${reply}</div>`;
-            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to bottom
-        };
-    </script>
+    function sendMessage() {
+        var userInput = document.getElementById('userInput').value;
+        if (userInput === '') return;
+
+        // Display user message
+        var userMessage = document.createElement('div');
+        userMessage.className = 'user-message';
+        userMessage.textContent = userInput;
+        document.getElementById('messages').appendChild(userMessage);
+        document.getElementById('userInput').value = '';
+
+        // Simulated bot response
+        var botMessage = document.createElement('div');
+        botMessage.className = 'bot-message';
+        botMessage.textContent = 'SOAD BOT: This is a simulated response to "' + userInput + '"';
+        document.getElementById('messages').appendChild(botMessage);
+
+        // Scroll to bottom
+        var messageBox = document.getElementById('messages');
+        messageBox.scrollTop = messageBox.scrollHeight;
+    }
+</script>
+
 </body>
 </html>
