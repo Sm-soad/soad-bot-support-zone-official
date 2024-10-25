@@ -1,0 +1,17 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(bodyParser.json());
+
+app.post('/api/chat', (req, res) => {
+  const userMessage = req.body.message;
+  // AI Logic to generate reply
+  const botReply = "This is a response from your bot."; // Replace with actual logic
+  res.json({ reply: botReply });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
