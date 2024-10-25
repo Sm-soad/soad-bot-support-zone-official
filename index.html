@@ -93,12 +93,14 @@
 </div>
 
 <script>
+    // Function to start the chat
     function startChat() {
         document.getElementById('intro').style.display = 'none';
         document.getElementById('chatContainer').style.display = 'block';
     }
 
-    function sendMessage() {
+    // Function to send a message and get a response from the bot
+    async function sendMessage() {
         var userInput = document.getElementById('userInput').value;
         if (userInput === '') return;
 
@@ -109,13 +111,26 @@
         document.getElementById('messages').appendChild(userMessage);
         document.getElementById('userInput').value = '';
 
-        // Simulated bot response
+        // Fetch bot response from API
+        var response = await fetch('https://api.example.com/get-response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                question: userInput
+            })
+        });
+
+        var data = await response.json();
+
+        // Display bot message
         var botMessage = document.createElement('div');
         botMessage.className = 'bot-message';
-        botMessage.textContent = 'SOAD BOT: This is a simulated response to "' + userInput + '"';
+        botMessage.textContent = 'SOAD BOT: ' + data.answer;
         document.getElementById('messages').appendChild(botMessage);
 
-        // Scroll to bottom
+        // Scroll to the bottom
         var messageBox = document.getElementById('messages');
         messageBox.scrollTop = messageBox.scrollHeight;
     }
