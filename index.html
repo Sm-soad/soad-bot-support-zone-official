@@ -101,7 +101,7 @@
     function sendMessage() {
         var userInput = document.getElementById('userInput').value;
         if (userInput === '') return;
-        
+
         // Display user message
         var userMessage = document.createElement('div');
         userMessage.className = 'user-message';
@@ -109,17 +109,35 @@
         document.getElementById('messages').appendChild(userMessage);
         document.getElementById('userInput').value = '';
 
-        // Simulate bot reply
-        setTimeout(function() {
+        // API call to get bot response (placeholder example)
+        fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR_OPENAI_API_KEY'
+            },
+            body: JSON.stringify({
+                prompt: userInput,
+                max_tokens: 150
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
             var botMessage = document.createElement('div');
             botMessage.className = 'bot-message';
-            botMessage.textContent = 'SOAD BOT: Thanks for your message! How can I assist you?';
+            botMessage.textContent = 'SOAD BOT: ' + data.choices[0].text.trim();
             document.getElementById('messages').appendChild(botMessage);
 
             // Scroll to bottom
             var messageBox = document.getElementById('messages');
             messageBox.scrollTop = messageBox.scrollHeight;
-        }, 1000);
+        })
+        .catch(error => {
+            var botMessage = document.createElement('div');
+            botMessage.className = 'bot-message';
+            botMessage.textContent = 'SOAD BOT: Sorry, something went wrong.';
+            document.getElementById('messages').appendChild(botMessage);
+        });
     }
 </script>
 
