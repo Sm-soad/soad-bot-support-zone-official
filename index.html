@@ -1,125 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOAD BOT SUPPORT ZONE</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
+        body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        .intro {
+            background-color: #f0f0f0;
+            color: #333;
             text-align: center;
-            padding: 50px;
-            background-color: #333;
-            color: white;
-            height: 100vh;
         }
-        .intro h1 {
-            margin: 0;
-            font-size: 4em;
-        }
-        .intro p {
-            font-size: 1.5em;
-        }
-        .chat-container {
+        #intro {
             display: none;
             padding: 20px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: white;
+            font-size: 24px;
         }
-        .chat-box {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+        #chat-container {
+            margin-top: 20px;
         }
-        .messages {
+        #messages {
+            border: 1px solid #ccc;
             height: 300px;
             overflow-y: scroll;
-            border: 1px solid #ccc;
-            padding: 10px;
             margin-bottom: 10px;
-        }
-        .message-input {
-            width: calc(100% - 50px);
             padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            background-color: white;
         }
-        .send-btn {
-            padding: 10px 20px;
-            border: none;
-            background-color: #333;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .bot-message {
-            background-color: #e6e6e6;
+        #user-input {
+            width: 80%;
             padding: 10px;
-            border-radius: 5px;
-            margin: 5px 0;
         }
-        .user-message {
-            background-color: #d4edda;
+        #send-button {
             padding: 10px;
-            border-radius: 5px;
-            margin: 5px 0;
-            text-align: right;
         }
     </style>
 </head>
 <body>
-
-<div class="intro" id="intro">
-    <h1>Welcome to SOAD BOT SUPPORT ZONE</h1>
-    <p>Developed by SM Soad</p>
-    <button class="send-btn" onclick="startChat()">Enter Chat</button>
-</div>
-
-<div class="chat-container" id="chatContainer">
-    <div class="chat-box">
-        <div class="messages" id="messages">
-            <!-- Chat messages will appear here -->
-        </div>
-        <input type="text" class="message-input" id="userInput" placeholder="Type your question...">
-        <button class="send-btn" onclick="sendMessage()">Send</button>
+    <div id="intro">
+        ডেভলপার SM-SOAD এর স্বাগতম! আপনি SOAD BOT SUPPORT ZONE এ প্রবেশ করছেন।
     </div>
-</div>
+    <div id="chat-container">
+        <div id="messages"></div>
+        <input type="text" id="user-input" placeholder="আপনার বার্তা লিখুন..." />
+        <button id="send-button">পাঠান</button>
+    </div>
+    <script>
+        window.onload = function() {
+            document.getElementById('intro').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('intro').style.display = 'none';
+            }, 5000); // 5 সেকেন্ড পর ইন্ট্রো মুছে যাবে
+        };
 
-<script>
-    function startChat() {
-        document.getElementById('intro').style.display = 'none';
-        document.getElementById('chatContainer').style.display = 'block';
-    }
+        document.getElementById('send-button').onclick = function() {
+            let input = document.getElementById('user-input').value;
+            let messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += `<div>ব্যবহারকারী: ${input}</div>`;
+            document.getElementById('user-input').value = '';
 
-    function sendMessage() {
-        var userInput = document.getElementById('userInput').value;
-        if (userInput === '') return;
-
-        // Display user message
-        var userMessage = document.createElement('div');
-        userMessage.className = 'user-message';
-        userMessage.textContent = userInput;
-        document.getElementById('messages').appendChild(userMessage);
-        document.getElementById('userInput').value = '';
-
-        // Simulated bot response
-        var botMessage = document.createElement('div');
-        botMessage.className = 'bot-message';
-        botMessage.textContent = 'SOAD BOT: দুঃখিত, এই মুহূর্তে আপনার প্রশ্নের উত্তর দেওয়া সম্ভব হচ্ছে না। আমি একটি আর্টিফিশিয়াল ইন্টেলিজেন্ট রোবট, আমার মধ্যে language transfer করা হচ্ছে। আরো কিছু জানতে আমার বস সোয়াদ এর কাছ থেকে জানুন। "' + userInput + '"';
-        document.getElementById('messages').appendChild(botMessage);
-
-        // Scroll to bottom
-        var messageBox = document.getElementById('messages');
-        messageBox.scrollTop = messageBox.scrollHeight;
-    }
-</script>
-
+            // অটো রিপ্লাই যুক্ত করা হচ্ছে
+            let reply = "ধন্যবাদ! আমরা আপনার বার্তা পেয়েছি। অনুগ্রহ করে অপেক্ষা করুন";
+            messagesDiv.innerHTML += `<div>SOAD BOT: ${reply}</div>`;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // স্ক্রল নিচে নিয়ে যাবে
+        };
+    </script>
 </body>
 </html>
