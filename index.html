@@ -109,35 +109,15 @@
         document.getElementById('messages').appendChild(userMessage);
         document.getElementById('userInput').value = '';
 
-        // API call to get bot response (placeholder example)
-        fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer YOUR_OPENAI_API_KEY'
-            },
-            body: JSON.stringify({
-                prompt: userInput,
-                max_tokens: 150
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            var botMessage = document.createElement('div');
-            botMessage.className = 'bot-message';
-            botMessage.textContent = 'SOAD BOT: ' + data.choices[0].text.trim();
-            document.getElementById('messages').appendChild(botMessage);
+        // Simulated bot response
+        var botMessage = document.createElement('div');
+        botMessage.className = 'bot-message';
+        botMessage.textContent = 'SOAD BOT: This is a simulated response to "' + userInput + '"';
+        document.getElementById('messages').appendChild(botMessage);
 
-            // Scroll to bottom
-            var messageBox = document.getElementById('messages');
-            messageBox.scrollTop = messageBox.scrollHeight;
-        })
-        .catch(error => {
-            var botMessage = document.createElement('div');
-            botMessage.className = 'bot-message';
-            botMessage.textContent = 'SOAD BOT: Sorry, something went wrong.';
-            document.getElementById('messages').appendChild(botMessage);
-        });
+        // Scroll to bottom
+        var messageBox = document.getElementById('messages');
+        messageBox.scrollTop = messageBox.scrollHeight;
     }
 </script>
 
