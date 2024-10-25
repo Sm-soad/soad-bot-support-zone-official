@@ -23,3 +23,4 @@ app.post('/chatbot', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Chatbot API running on http://localhost:${PORT}`);
 });
+node app.js
