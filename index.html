@@ -31,13 +31,15 @@
             margin: 5px 0;
             padding: 10px;
             border-radius: 5px;
+            word-wrap: break-word;
         }
         .user-message {
             background: #d1e7dd;
-            align-self: flex-end;
+            text-align: right;
         }
         .bot-message {
             background: #f8d7da;
+            text-align: left;
         }
         #chat-input {
             display: flex;
@@ -84,11 +86,13 @@
         async function fetchBotResponse(userMessage) {
             try {
                 const response = await fetch(`https://www.simsimi-imran.fun/sim?ask=${encodeURIComponent(userMessage)}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const data = await response.json();
+                if (!data.response) throw new Error("Invalid API response");
                 return data.response;
             } catch (error) {
                 console.error('Error fetching bot response:', error);
-                return 'Sorry, I am having trouble responding right now.';
+                return 'Sorry, I could not process your request.';
             }
         }
 
